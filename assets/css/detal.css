@@ -32,3 +32,28 @@
       border-bottom: 1px solid #ddd;
       padding-bottom: 5px;
   }
+
+
+  .card-detalhe {
+      height: calc(100vh - 80px);
+  }
+
+  .cabecalho-lista {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      z-index: 10;
+  }
+
+  #lista-os {
+      max-height: calc(100vh - 220px);
+      overflow-y: auto;
+  }
+
+  .coluna-ordenacao {
+      cursor: pointer;
+  }
+
+  .coluna-ordenacao:hover {
+      color: #095582;
+  }
