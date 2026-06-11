@@ -1,11 +1,12 @@
 <?php
 include_once '../config/database.php';
+include_once '../config/config.php';
 
 // TRIAGEM
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '00'
+    WHERE TB02115_STATUS = '$STATUS_TRIAGEM'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -16,7 +17,7 @@ $triagem = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '36'
+    WHERE TB02115_STATUS = '$STATUS_CTI'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -27,7 +28,7 @@ $cti = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '06'
+    WHERE TB02115_STATUS = '$STATUS_DESMONTAGEM'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -38,7 +39,7 @@ $desmontagem = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'PD'
+    WHERE TB02115_STATUS = '$STATUS_DESMONTANDO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -49,7 +50,7 @@ $desmontando = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '12'
+    WHERE TB02115_STATUS = '$STATUS_LAVAGEM'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -60,7 +61,7 @@ $lavagem = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'PL'
+    WHERE TB02115_STATUS = '$STATUS_LAVANDO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -71,7 +72,7 @@ $lavando = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '38'
+    WHERE TB02115_STATUS = '$STATUS_SOPRAGEM'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -82,7 +83,7 @@ $sopragem = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'PS'
+    WHERE TB02115_STATUS = '$STATUS_SOPRANDO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -93,7 +94,7 @@ $soprando = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '30'
+    WHERE TB02115_STATUS = '$STATUS_TESTE_FINAL'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -104,7 +105,7 @@ $teste_final = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'PT'
+    WHERE TB02115_STATUS = '$STATUS_TESTANDO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -115,7 +116,7 @@ $testando = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'Y3'
+    WHERE TB02115_STATUS = '$STATUS_RECUPERACAO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -126,7 +127,7 @@ $recuperacao = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'PR'
+    WHERE TB02115_STATUS = '$STATUS_RECUPERANDO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -137,7 +138,7 @@ $recuperando = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'STATUS_ISOLAMENTO'
+    WHERE TB02115_STATUS = '$STATUS_ISOLAMENTO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -148,7 +149,7 @@ $isolamento = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'STATUS_ISOLANDO'
+    WHERE TB02115_STATUS = '$STATUS_ISOLANDO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -159,7 +160,7 @@ $isolando = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '27'
+    WHERE TB02115_STATUS = '$STATUS_PINTURA'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -170,7 +171,7 @@ $pintura = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'Z6'
+    WHERE TB02115_STATUS = '$STATUS_PINTANDO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -181,7 +182,7 @@ $pintando = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '21'
+    WHERE TB02115_STATUS = '$STATUS_MONTAGEM'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -192,7 +193,7 @@ $montagem = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = 'PM'
+    WHERE TB02115_STATUS = '$STATUS_MONTANDO'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
@@ -203,7 +204,7 @@ $montando = $row['TOTAL'];
 $sql = "
     SELECT COUNT(TB02115_CODIGO) AS TOTAL
     FROM TB02115
-    WHERE TB02115_STATUS = '33'
+    WHERE TB02115_STATUS = '$STATUS_CHECKLIST'
 ";
 $stmt = sqlsrv_query($conn, $sql);
 $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
