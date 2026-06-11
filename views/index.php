@@ -40,17 +40,21 @@ $checklist = 6;
     <title>Mapa Global</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
 
+    <div class="titulo-sistema">
+        Checkin - Checkout
+    </div>
+
     <div class="container-fluid">
 
-        <div class="row gx-6 gy-4">
+        <div class="row" style="column-gap:40px;">
 
             <!-- ESQUERDA -->
-            <div class="col-lg-4">
+            <div class="col-lg-3">
 
                 <!-- TRIAGEM -->
                 <div class="painel-lateral">
@@ -88,97 +92,100 @@ $checklist = 6;
             </div>
 
             <!-- DIREITA -->
-            <div class="col-lg-8">
-
+            <div class="col">
                 <div class="painel-producao">
 
                     <div class="titulo-painel">
                         PRODUÇÃO
                     </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Desmontagem</span>
-                        <span class="valor"><?= $desmontagem ?></span>
-                    </div>
+                    <div class="producao-grid">
 
-                    <div class="item-producao">
-                        <span class="nome">Desmontando</span>
-                        <span class="valor"><?= $desmontando ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Desmontagem</span>
+                            <span><?= $desmontagem ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Lavagem</span>
-                        <span class="valor"><?= $lavagem ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Desmontando</span>
+                            <span><?= $desmontando ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Lavando</span>
-                        <span class="valor"><?= $lavando ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Lavagem</span>
+                            <span><?= $lavagem ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Sopragem</span>
-                        <span class="valor"><?= $sopragem ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Lavando</span>
+                            <span><?= $lavando ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Soprando</span>
-                        <span class="valor"><?= $soprando ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Sopragem</span>
+                            <span><?= $sopragem ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Teste Final</span>
-                        <span class="valor"><?= $teste_final ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Soprando</span>
+                            <span><?= $soprando ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Testando</span>
-                        <span class="valor"><?= $testando ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Teste Final</span>
+                            <span><?= $teste_final ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Recuperação</span>
-                        <span class="valor"><?= $recuperacao ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Testando</span>
+                            <span><?= $testando ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Recuperando</span>
-                        <span class="valor"><?= $recuperando ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Recuperação</span>
+                            <span><?= $recuperacao ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Isolamento</span>
-                        <span class="valor"><?= $isolamento ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Recuperando</span>
+                            <span><?= $recuperando ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Isolando</span>
-                        <span class="valor"><?= $isolando ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Isolamento</span>
+                            <span><?= $isolamento ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Pintura</span>
-                        <span class="valor"><?= $pintura ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Isolando</span>
+                            <span><?= $isolando ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Pintando</span>
-                        <span class="valor"><?= $pintando ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Pintura</span>
+                            <span><?= $pintura ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Montagem</span>
-                        <span class="valor"><?= $montagem ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Pintando</span>
+                            <span><?= $pintando ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Montando</span>
-                        <span class="valor"><?= $montando ?></span>
-                    </div>
+                        <div class="producao-item">
+                            <span>Montagem</span>
+                            <span><?= $montagem ?></span>
+                        </div>
 
-                    <div class="item-producao">
-                        <span class="nome">Check List</span>
-                        <span class="valor"><?= $checklist ?></span>
+                        <div class="producao-item">
+                            <span>Montando</span>
+                            <span><?= $montando ?></span>
+                        </div>
+
+                        <div class="producao-item">
+                            <span>Check List</span>
+                            <span><?= $checklist ?></span>
+                        </div>
+
                     </div>
 
                 </div>
