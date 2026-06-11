@@ -1,34 +1,36 @@
 <?php
+header('Content-type: text/html; charset=ISO-8895-1');
 
-$triagem = 15;
-$triando = 3;
-$cti = 2;
+include_once '../models/contOsTipo.php';
 
-$desmontagem = 12;
-$desmontando = 2;
+$triagemOS = $triagem;
+$ctiOS = $cti;
 
-$lavagem = 20;
-$lavando = 1;
+$desmontagemOS = $desmontagem;
+$desmontandoOS = $desmontando;
 
-$sopragem = 18;
-$soprando = 0;
+$lavagemOS = $lavagem;
+$lavandoOS = $lavando;
 
-$teste_final = 7;
-$testando = 1;
+$sopragemOS = $sopragem;
+$soprandoOS = $soprando;
 
-$recuperacao = 4;
-$recuperando = 1;
+$teste_finalOS = $teste_final;
+$testandoOS = $testando;
 
-$isolamento = 9;
-$isolando = 2;
+$recuperacaoOS = $recuperacao;
+$recuperandoOS = $recuperando;
 
-$pintura = 11;
-$pintando = 3;
+$isolamentoOS = $isolamento;
+$isolandoOS = $isolando;
 
-$montagem = 15;
-$montando = 2;
+$pinturaOS = $pintura;
+$pintandoOS = $pintando;
 
-$checklist = 6;
+$montagemOS = $montagem;
+$montandoOS = $montando;
+
+$checklistOS = $checklist;
 
 ?>
 <!DOCTYPE html>
@@ -65,14 +67,8 @@ $checklist = 6;
 
                     <div class="totalizador">
                         <span class="nome">Triagem</span>
-                        <span class="valor"><?= $triagem ?></span>
+                        <span class="valor"><?= $triagemOS ?></span>
                     </div>
-
-                    <div class="totalizador">
-                        <span class="nome">Triando</span>
-                        <span class="valor"><?= $triando ?></span>
-                    </div>
-
                 </div>
 
                 <!-- CTI -->
@@ -108,82 +104,82 @@ $checklist = 6;
 
                         <div class="producao-item">
                             <span>Desmontando</span>
-                            <span><?= $desmontando ?></span>
+                            <span><?= $desmontandoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Lavagem</span>
-                            <span><?= $lavagem ?></span>
+                            <span><?= $lavagemOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Lavando</span>
-                            <span><?= $lavando ?></span>
+                            <span><?= $lavandoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Sopragem</span>
-                            <span><?= $sopragem ?></span>
+                            <span><?= $sopragemOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Soprando</span>
-                            <span><?= $soprando ?></span>
+                            <span><?= $soprandoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Teste Final</span>
-                            <span><?= $teste_final ?></span>
+                            <span><?= $teste_finalOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Testando</span>
-                            <span><?= $testando ?></span>
+                            <span><?= $testandoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Recuperação</span>
-                            <span><?= $recuperacao ?></span>
+                            <span><?= $recuperacaoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Recuperando</span>
-                            <span><?= $recuperando ?></span>
+                            <span><?= $recuperandoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Isolamento</span>
-                            <span><?= $isolamento ?></span>
+                            <span><?= $isolamentoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Isolando</span>
-                            <span><?= $isolando ?></span>
+                            <span><?= $isolandoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Pintura</span>
-                            <span><?= $pintura ?></span>
+                            <span><?= $pinturaOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Pintando</span>
-                            <span><?= $pintando ?></span>
+                            <span><?= $pintandoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Montagem</span>
-                            <span><?= $montagem ?></span>
+                            <span><?= $montagemOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Montando</span>
-                            <span><?= $montando ?></span>
+                            <span><?= $montandoOS ?></span>
                         </div>
 
                         <div class="producao-item">
                             <span>Check List</span>
-                            <span><?= $checklist ?></span>
+                            <span><?= $checklistOS ?></span>
                         </div>
 
                     </div>

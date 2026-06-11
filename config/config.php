@@ -1,0 +1,9 @@
+<?php
+/* Variaveis a serem alteradas, mantenha o padrão de preenchimento */
+
+$server = 'localhost';
+$base = 'TINSEI';
+$usuarioBanco = 'sa';
+$SenhaBanco = '13012020';
+
+
