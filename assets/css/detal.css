@@ -1,59 +1,36 @@
-  body {
-      background: #095582;
-      padding: 30px;
-  }
+body {
+    background: #095582;
+    padding: 30px;
+}
 
-  .card-detalhe {
-      background: #fff;
-      border-radius: 15px;
-      padding: 25px;
-  }
+.card-detalhe {
+    background: #fff;
+    border-radius: 15px;
+    padding: 25px;
+}
 
-  .titulo {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 25px;
-      color: #095582;
-  }
+.titulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #095582;
+}
 
-  .campo {
-      margin-bottom: 20px;
-  }
+.cabecalho-lista {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 10;
+}
 
-  .campo label {
-      display: block;
-      font-weight: bold;
-      color: #666;
-      margin-bottom: 5px;
-  }
+#lista-os {
+    overflow-y: visible;
+}
 
-  .campo .valor {
-      font-size: 18px;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 5px;
-  }
+.coluna-ordenacao {
+    cursor: pointer;
+}
 
-
-  .card-detalhe {
-      height: calc(100vh - 80px);
-  }
-
-  .cabecalho-lista {
-      position: sticky;
-      top: 0;
-      background: #ffffff;
-      z-index: 10;
-  }
-
-  #lista-os {
-      max-height: calc(100vh - 220px);
-      overflow-y: auto;
-  }
-
-  .coluna-ordenacao {
-      cursor: pointer;
-  }
-
-  .coluna-ordenacao:hover {
-      color: #095582;
-  }
+.coluna-ordenacao:hover {
+    color: #095582;
+}

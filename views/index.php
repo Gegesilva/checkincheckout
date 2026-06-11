@@ -39,6 +39,7 @@ $checklistOS = $checklist;
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="20">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa Global</title>
 
