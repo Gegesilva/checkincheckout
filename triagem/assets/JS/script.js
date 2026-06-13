@@ -1,79 +1,42 @@
-function abrirDetalhe(status) {
-    document.getElementById('status').value = status;
-    document.getElementById('frmStatus').submit();
+function abrirModalTecnico(os, serie) {
+    document.getElementById('modalTecnicoOs').value = os;
+    document.getElementById('modalTecnicoSerie').value = serie;
+    document.getElementById('modalTecnicoOsTexto').innerHTML = os;
+    abrirModal('modalTecnico', 'codTecnico');
 }
 
+function abrirModalMedidores(os, serie, medidorPb, medidorColor, medidorTotal) {
+    document.getElementById('modalMedidoresOs').value = os;
+    document.getElementById('modalMedidoresSerie').value = serie;
+    document.getElementById('modalMedidoresOsTexto').innerHTML = os;
+    document.getElementById('modalMedidoresSerieTexto').innerHTML = serie;
+    document.getElementById('medidorPb').value = medidorPb;
+    document.getElementById('medidorColor').value = medidorColor;
+    document.getElementById('medidorTotal').value = medidorTotal;
+    abrirModal('modalMedidores', 'medidorPb');
+}
 
-/* ordenação */
-document.addEventListener('DOMContentLoaded', function () {
+function abrirModal(modalId, focusId) {
+    var modal = document.getElementById(modalId);
+    modal.className = modal.className + ' is-open';
 
-    var cabecalhos = document.querySelectorAll('.coluna-ordenacao');
+    window.setTimeout(function () {
+        var campo = document.getElementById(focusId);
+        if (campo) {
+            campo.focus();
+            campo.select();
+        }
+    }, 100);
+}
 
-    for (var i = 0; i < cabecalhos.length; i++) {
+function fecharModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.className = modal.className.replace(' is-open', '');
+}
 
-        cabecalhos[i].addEventListener('click', function () {
-
-            ordenarTabela(parseInt(this.getAttribute('data-coluna')));
-
-        });
+document.addEventListener('keydown', function (event) {
+    if (event.keyCode == 27) {
+        fecharModal('modalTecnico');
+        fecharModal('modalMedidores');
     }
-
 });
-
-var direcoesOrdenacao = {};
-
-function ordenarTabela(coluna) {
-
-    var container = document.getElementById('lista-os');
-
-    var linhas = Array.prototype.slice.call(
-        document.querySelectorAll('#lista-os .linha-os')
-    );
-
-    if (typeof direcoesOrdenacao[coluna] === 'undefined') {
-        direcoesOrdenacao[coluna] = 'desc';
-    } else {
-        direcoesOrdenacao[coluna] =
-            direcoesOrdenacao[coluna] === 'desc'
-                ? 'asc'
-                : 'desc';
-    }
-
-    linhas.sort(function (a, b) {
-
-        var valorA = a.children[coluna].innerText.replace(/^\s+|\s+$/g, '');
-        var valorB = b.children[coluna].innerText.replace(/^\s+|\s+$/g, '');
-
-        var numA = parseFloat(valorA);
-        var numB = parseFloat(valorB);
-
-        if (!isNaN(numA) && !isNaN(numB)) {
-
-            return direcoesOrdenacao[coluna] === 'desc'
-                ? numB - numA
-                : numA - numB;
-        }
-
-        valorA = valorA.toUpperCase();
-        valorB = valorB.toUpperCase();
-
-        if (direcoesOrdenacao[coluna] === 'desc') {
-
-            if (valorA < valorB) return 1;
-            if (valorA > valorB) return -1;
-            return 0;
-
-        } else {
-
-            if (valorA < valorB) return -1;
-            if (valorA > valorB) return 1;
-            return 0;
-        }
-    });
-
-    container.innerHTML = '';
-
-    for (var i = 0; i < linhas.length; i++) {
-        container.appendChild(linhas[i]);
-    }
-}

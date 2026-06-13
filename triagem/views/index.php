@@ -1,215 +1,165 @@
 <?php
 header('Content-type: text/html; charset=ISO-8895-1');
-
-include_once '../config/database.php';
-include_once '../config/config.php';
+require_once '../config/database.php';
 include_once '../models/testLogin.php';
+include_once '../models/modtriagem.php';
 
 testLogin($conn);
 
-include_once '../models/contOsTipo.php';
+$osPendentes = buscarOsTriagem($conn, '00');
+$osEmTriagem = buscarOsTriagem($conn, '01');
 
-$triagemOS = $triagem;
-$ctiOS = $cti;
-
-$desmontagemOS = $desmontagem;
-$desmontandoOS = $desmontando;
-
-$lavagemOS = $lavagem;
-$lavandoOS = $lavando;
-
-$sopragemOS = $sopragem;
-$soprandoOS = $soprando;
-
-$teste_finalOS = $teste_final;
-$testandoOS = $testando;
-
-$recuperacaoOS = $recuperacao;
-$recuperandoOS = $recuperando;
-
-$isolamentoOS = $isolamento;
-$isolandoOS = $isolando;
-
-$pinturaOS = $pintura;
-$pintandoOS = $pintando;
-
-$montagemOS = $montagem;
-$montandoOS = $montando;
-
-$checklistOS = $checklist;
-
+function renderizarTabelaTriagem($rows, $tipo)
+{
+    if (count($rows) == 0) {
+        echo '<div class="empty-state">Nenhuma OS encontrada.</div>';
+        return;
+    }
+?>
+    <div class="table-wrap">
+        <table class="triagem-table">
+            <thead>
+                <tr>
+                    <th>OS</th>
+                    <th>Container</th>
+                    <th>Modelo</th>
+                    <th>Serial</th>
+                    <th>Local</th>
+                    <th>Vendido (S/N)</th>
+                    <th>Data Pedido</th>
+                    <th>Grupo Economico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($rows as $row) {
+                    $local = isset($row['local']) ? trim($row['local']) : '';
+                    $classeLocal = strtoupper($local) == 'TRI' ? '' : ' linha-alerta';
+                    $dataPedido = isset($row['datapedido']) ? formatarDataTriagem($row['datapedido']) : '';
+                    $medidores = isset($row['medidores']) ? $row['medidores'] : array();
+                    $medidorPb = isset($medidores['TB02054_MEDIDORPB']) ? $medidores['TB02054_MEDIDORPB'] : '';
+                    $medidorColor = isset($medidores['TB02054_MEDIDORCOLOR']) ? $medidores['TB02054_MEDIDORCOLOR'] : '';
+                    $medidorTotal = isset($medidores['TB02054_MEDIDORTOTAL']) ? $medidores['TB02054_MEDIDORTOTAL'] : '';
+                ?>
+                    <tr class="<?php echo $classeLocal; ?>">
+                        <td>
+                            <?php if ($tipo == 'pendente') { ?>
+                                <button type="button" class="os-link" onclick="abrirModalTecnico('<?php echo j($row['os']); ?>', '<?php echo j($row['serie']); ?>')">
+                                    <?php echo h($row['os']); ?>
+                                </button>
+                            <?php } else { ?>
+                                <button type="button" class="os-link" onclick="abrirModalMedidores('<?php echo j($row['os']); ?>', '<?php echo j($row['serie']); ?>', '<?php echo j($medidorPb); ?>', '<?php echo j($medidorColor); ?>', '<?php echo j($medidorTotal); ?>')">
+                                    <?php echo h($row['os']); ?>
+                                </button>
+                            <?php } ?>
+                        </td>
+                        <td><?php echo h($row['container']); ?></td>
+                        <td><?php echo h($row['modelo']); ?></td>
+                        <td><?php echo h($row['serie']); ?></td>
+                        <td><?php echo h($local); ?></td>
+                        <td><?php echo h($row['vendido']); ?></td>
+                        <td><?php echo h($dataPedido); ?></td>
+                        <td><?php echo h($row['grupoeco']); ?></td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
+<?php
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="20">
+    <meta http-equiv="refresh" content="60">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa Global</title>
-
+    <title>Triagem - Checkin Checkout</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/index.css">
 </head>
 
-<form id="frmStatus" method="post" action="detal.php">
-    <input type="hidden" name="status" id="status">
-</form>
-
 <body>
+    <div class="page-shell">
+        <header class="page-header">
+            <div>
+                <span class="eyebrow">Checkin - Checkout</span>
+                <h1>Triagem</h1>
+            </div>
+            <a class="btn-sair" href="login.php">SAIR</a>
+        </header>
 
-    <div class="topo-sistema">
-        <div class="titulo-sistema">
-            Checkin - Checkout
-        </div>
-        <a class="btn-sair" href="login.php">SAIR</a>
+        <section class="triagem-card">
+            <div class="card-title">
+                <div>
+                    <h2>Fila de triagem</h2>
+                    <p>Equipamentos/OS ainda nao triados - Status 00</p>
+                </div>
+                <span class="contador"><?php echo count($osPendentes); ?></span>
+            </div>
+            <?php renderizarTabelaTriagem($osPendentes, 'pendente'); ?>
+        </section>
+
+        <section class="triagem-card">
+            <div class="card-title">
+                <div>
+                    <h2>Em processo de triagem</h2>
+                    <p>Equipamentos/OS em triagem - Status 01</p>
+                </div>
+                <span class="contador"><?php echo count($osEmTriagem); ?></span>
+            </div>
+            <?php renderizarTabelaTriagem($osEmTriagem, 'andamento'); ?>
+        </section>
+
+        <footer class="page-footer">
+            <span>Atualizado: <?php echo date('d/m/y H:i'); ?></span>
+            <img src="../../../Saldos/Beneficios/public/img/logo.jpg" alt="TINSEI">
+        </footer>
     </div>
 
-    <div class="container-fluid">
+    <div class="modal-backdrop-custom" id="modalTecnico">
+        <div class="modal-box">
+            <button type="button" class="modal-close" onclick="fecharModal('modalTecnico')">x</button>
+            <h3>Iniciar triagem</h3>
+            <p>Leia o cracha do tecnico para iniciar a OS <strong id="modalTecnicoOsTexto"></strong>.</p>
 
-        <div class="row" style="column-gap:40px;">
+            <form method="post" action="../models/iniciarTriagem.php">
+                <input type="hidden" name="os" id="modalTecnicoOs">
+                <input type="hidden" name="serie" id="modalTecnicoSerie">
 
-            <!-- ESQUERDA -->
-            <div class="col-lg-3">
+                <label for="codTecnico">Cod. Tecnico</label>
+                <input type="text" name="cod_tecnico" id="codTecnico" autocomplete="off" required>
 
-                <!-- TRIAGEM -->
-                <div class="painel-lateral">
-
-                    <div class="titulo-painel">
-                        TRIAGEM
-                    </div>
-
-                    <div class="totalizador" onclick="abrirDetalhe('<?php echo $STATUS_TRIAGEM; ?>')">
-                        <span class="nome">Triagem</span>
-                        <span class="valor"><?= $triagemOS ?></span>
-                    </div>
-
-                </div>
-
-                <!-- CTI -->
-                <div class="painel-lateral">
-
-                    <div class="titulo-painel">
-                        CTI
-                    </div>
-
-                    <div class="totalizador totalizador-cti" onclick="abrirDetalhe('<?php echo $STATUS_CTI; ?>')">
-                        <span class="nome">Equipamentos</span>
-                        <span class="valor"><?= $ctiOS ?></span>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- DIREITA -->
-            <div class="col">
-
-                <div class="painel-producao">
-
-                    <div class="titulo-painel">
-                        PRODUÇÃO
-                    </div>
-
-                    <div class="producao-grid">
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_DESMONTAGEM; ?>')">
-                            <span>Desmontagem</span>
-                            <span><?= $desmontagemOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_DESMONTANDO; ?>')">
-                            <span>Desmontando</span>
-                            <span><?= $desmontandoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_LAVAGEM; ?>')">
-                            <span>Lavagem</span>
-                            <span><?= $lavagemOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_LAVANDO; ?>')">
-                            <span>Lavando</span>
-                            <span><?= $lavandoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_SOPRAGEM; ?>')">
-                            <span>Sopragem</span>
-                            <span><?= $sopragemOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_SOPRANDO; ?>')">
-                            <span>Soprando</span>
-                            <span><?= $soprandoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_TESTE_FINAL; ?>')">
-                            <span>Teste Final</span>
-                            <span><?= $teste_finalOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_TESTANDO; ?>')">
-                            <span>Testando</span>
-                            <span><?= $testandoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_RECUPERACAO; ?>')">
-                            <span>Recuperação</span>
-                            <span><?= $recuperacaoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_RECUPERANDO; ?>')">
-                            <span>Recuperando</span>
-                            <span><?= $recuperandoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_ISOLAMENTO; ?>')">
-                            <span>Isolamento</span>
-                            <span><?= $isolamentoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_ISOLANDO; ?>')">
-                            <span>Isolando</span>
-                            <span><?= $isolandoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_PINTURA; ?>')">
-                            <span>Pintura</span>
-                            <span><?= $pinturaOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_PINTANDO; ?>')">
-                            <span>Pintando</span>
-                            <span><?= $pintandoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_MONTAGEM; ?>')">
-                            <span>Montagem</span>
-                            <span><?= $montagemOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_MONTANDO; ?>')">
-                            <span>Montando</span>
-                            <span><?= $montandoOS ?></span>
-                        </div>
-
-                        <div class="producao-item" onclick="abrirDetalhe('<?php echo $STATUS_CHECKLIST; ?>')">
-                            <span>Check List</span>
-                            <span><?= $checklistOS ?></span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+                <button type="submit" class="btn-gravar">Gravar</button>
+            </form>
         </div>
+    </div>
 
+    <div class="modal-backdrop-custom" id="modalMedidores">
+        <div class="modal-box">
+            <button type="button" class="modal-close" onclick="fecharModal('modalMedidores')">x</button>
+            <h3>Medidores da impressora</h3>
+            <p>OS <strong id="modalMedidoresOsTexto"></strong> - Serie <strong id="modalMedidoresSerieTexto"></strong></p>
+
+            <form method="post" action="../models/salvarMedidores.php">
+                <input type="hidden" name="os" id="modalMedidoresOs">
+                <input type="hidden" name="serie" id="modalMedidoresSerie">
+
+                <label for="medidorPb">Medidor PB</label>
+                <input type="number" name="medidor_pb" id="medidorPb" step="1" min="0" required>
+
+                <label for="medidorColor">Medidor Color</label>
+                <input type="number" name="medidor_color" id="medidorColor" step="1" min="0" required>
+
+                <label for="medidorTotal">Medidor Total</label>
+                <input type="number" name="medidor_total" id="medidorTotal" step="1" min="0" required>
+
+                <button type="submit" class="btn-gravar">Gravar medidores</button>
+            </form>
+        </div>
     </div>
 
     <script src="../assets/JS/script.js" charset="utf-8"></script>
-
 </body>
 
 </html>
