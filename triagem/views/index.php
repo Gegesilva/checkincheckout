@@ -1,6 +1,7 @@
 <?php
 header('Content-type: text/html; charset=ISO-8895-1');
 require_once '../config/database.php';
+include_once '../config/config.php';
 include_once '../models/testLogin.php';
 include_once '../models/modtriagem.php';
 
