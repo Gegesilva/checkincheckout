@@ -139,7 +139,7 @@ function renderizarTabelaTriagem($rows, $tipo)
     <div class="modal-backdrop-custom" id="modalMedidores">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="fecharModal('modalMedidores')">x</button>
-            <h3>Medidores da impressora</h3>
+            <h3>Medidores</h3>
             <p>OS <strong id="modalMedidoresOsTexto"></strong> - Serie <strong id="modalMedidoresSerieTexto"></strong></p>
 
             <form method="post" action="../models/salvarMedidores.php">

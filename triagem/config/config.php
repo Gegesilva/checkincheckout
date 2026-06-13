@@ -7,12 +7,16 @@ $usuarioBanco = 'sa';
 $SenhaBanco = '13012020';
 
 
-/* status */
+/* status de transferencia */
 
 $PENDENTES = '00';
 $EM_TRIAGEM = '01';
 
+$ARMAZENAGEM = '02';
 
+
+
+/* status do global */
 $STATUS_TRIAGEM = '00';
 
 $STATUS_CTI = '36';
