@@ -23,6 +23,7 @@ if ($os != '' && $serie != '') {
             TB02054_DTALT = GETDATE(), 
             TB02054_OPALT = ?
         WHERE TB02054_NUMSERIE = ?
+        AND TB02054_QTPROD > TB02054_QTPRODS
     ";
 
     $paramsMedidores = array($medidorPb, $medidorColor, $medidorTotal, $User, $serie);
