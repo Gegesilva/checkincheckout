@@ -1,3 +1,8 @@
+<?php
+header('Content-type: text/html; charset=ISO-8895-1');
+session_start();
+session_destroy();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -23,12 +28,12 @@
                 <span class="login-eyebrow">Checkin - Checkout</span>
             </div>
 
-            <form class="login-form" method="post" action="index.php">
+            <form class="login-form" method="post" action="../models/loginExec.php">
                 <div class="form-group">
                     <label for="usuario">Usuario</label>
                     <div class="input-wrap">
                         <i class="bi bi-person"></i>
-                        <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuario" autocomplete="username" required>
+                        <input type="text" id="usuario" name="login" placeholder="Digite seu usuario" autocomplete="username" required>
                     </div>
                 </div>
 
@@ -36,7 +41,7 @@
                     <label for="senha">Senha</label>
                     <div class="input-wrap">
                         <i class="bi bi-lock"></i>
-                        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" autocomplete="current-password" required>
+                        <input type="password" id="senha" name="password" placeholder="Digite sua senha" autocomplete="current-password" required>
                     </div>
                 </div>
 

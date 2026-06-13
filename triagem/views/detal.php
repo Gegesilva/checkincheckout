@@ -1,6 +1,9 @@
 <?php
 header('Content-type: text/html; charset=ISO-8895-1');
 require_once '../config/database.php';
+include_once '../models/testLogin.php';
+
+testLogin($conn);
 
 $status = isset($_POST['status']) ? $_POST['status'] : 0;
 
