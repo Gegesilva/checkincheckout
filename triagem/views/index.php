@@ -153,7 +153,7 @@ function renderizarTabelaTriagem($rows, $tipo)
                 <input type="number" name="medidor_color" id="medidorColor" step="1" min="0" required>
 
                 <label for="medidorTotal">Medidor Total</label>
-                <input type="number" name="medidor_total" id="medidorTotal" step="1" min="0" required>
+                <input type="number" name="medidor_total" id="medidorTotal" step="1" min="0" readonly>
 
                 <button type="submit" class="btn-gravar">Gravar medidores</button>
             </form>

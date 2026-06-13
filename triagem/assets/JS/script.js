@@ -12,7 +12,7 @@ function abrirModalMedidores(os, serie, medidorPb, medidorColor, medidorTotal) {
     document.getElementById('modalMedidoresSerieTexto').innerHTML = serie;
     document.getElementById('medidorPb').value = medidorPb;
     document.getElementById('medidorColor').value = medidorColor;
-    document.getElementById('medidorTotal').value = medidorTotal;
+    atualizarMedidorTotal();
     abrirModal('modalMedidores', 'medidorPb');
 }
 
@@ -43,13 +43,38 @@ document.addEventListener('keydown', function (event) {
 
 document.addEventListener('DOMContentLoaded', function () {
     var cabecalhos = document.querySelectorAll('.coluna-ordenacao');
+    var medidorPb = document.getElementById('medidorPb');
+    var medidorColor = document.getElementById('medidorColor');
 
     for (var i = 0; i < cabecalhos.length; i++) {
         cabecalhos[i].addEventListener('click', function () {
             ordenarTabela(this);
         });
     }
+
+    if (medidorPb) {
+        medidorPb.addEventListener('input', atualizarMedidorTotal);
+    }
+
+    if (medidorColor) {
+        medidorColor.addEventListener('input', atualizarMedidorTotal);
+    }
 });
+
+function atualizarMedidorTotal() {
+    var medidorPb = parseInt(document.getElementById('medidorPb').value, 10);
+    var medidorColor = parseInt(document.getElementById('medidorColor').value, 10);
+
+    if (isNaN(medidorPb)) {
+        medidorPb = 0;
+    }
+
+    if (isNaN(medidorColor)) {
+        medidorColor = 0;
+    }
+
+    document.getElementById('medidorTotal').value = medidorPb + medidorColor;
+}
 
 function ordenarTabela(cabecalho) {
     var coluna = parseInt(cabecalho.getAttribute('data-coluna'), 10);

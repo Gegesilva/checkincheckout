@@ -11,7 +11,7 @@ $os = isset($_POST['os']) ? $_POST['os'] : '';
 $serie = isset($_POST['serie']) ? $_POST['serie'] : '';
 $medidorPb = isset($_POST['medidor_pb']) ? $_POST['medidor_pb'] : 0;
 $medidorColor = isset($_POST['medidor_color']) ? $_POST['medidor_color'] : 0;
-$medidorTotal = isset($_POST['medidor_total']) ? $_POST['medidor_total'] : 0;
+$medidorTotal = (int) $medidorPb + (int) $medidorColor;
 
 if ($os != '' && $serie != '') {
     $sqlMedidores = "

@@ -220,6 +220,11 @@ body {
     font-size: 18px;
 }
 
+.modal-box input[readonly] {
+    background: #eef3f6;
+    color: #62727e;
+}
+
 .modal-close {
     position: absolute;
     top: 12px;
