@@ -1,8 +1,13 @@
 <?php
 header('Content-type: text/html; charset=ISO-8895-1');
 
-include_once '../models/contOsTipo.php';
+include_once '../config/database.php';
 include_once '../config/config.php';
+include_once '../models/testLogin.php';
+
+testLogin($conn);
+
+include_once '../models/contOsTipo.php';
 
 $triagemOS = $triagem;
 $ctiOS = $cti;
@@ -53,8 +58,11 @@ $checklistOS = $checklist;
 
 <body>
 
-    <div class="titulo-sistema">
-        Checkin - Checkout
+    <div class="topo-sistema">
+        <div class="titulo-sistema">
+            Checkin - Checkout
+        </div>
+        <a class="btn-sair" href="login.php">SAIR</a>
     </div>
 
     <div class="container-fluid">
