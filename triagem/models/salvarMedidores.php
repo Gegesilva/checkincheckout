@@ -19,11 +19,13 @@ if ($os != '' && $serie != '') {
         SET
             TB02054_MEDIDORPB = ?,
             TB02054_MEDIDORCOLOR = ?,
-            TB02054_MEDIDORTOTAL = ?
+            TB02054_MEDIDORTOTAL = ?,
+            TB02054_DTALT = GETDATE(), 
+            TB02054_OPALT = ?
         WHERE TB02054_NUMSERIE = ?
     ";
 
-    $paramsMedidores = array($medidorPb, $medidorColor, $medidorTotal, $serie);
+    $paramsMedidores = array($medidorPb, $medidorColor, $medidorTotal, $User, $serie);
     sqlsrv_query($conn, $sqlMedidores, $paramsMedidores);
 
     $sqlHistorico = "
@@ -87,11 +89,13 @@ if ($os != '' && $serie != '') {
 
     $sqlStatus = "
         UPDATE TB02115
-        SET TB02115_STATUS = ?
+        SET TB02115_STATUS = ?,
+            TB02115_DTALT = GETDATE(),
+            TB02115_OPALT = ?
         WHERE TB02115_CODIGO = ?
     ";
 
-    $paramsStatus = array($ARMAZENAGEM, $os);
+    $paramsStatus = array($ARMAZENAGEM, $User, $os);
     sqlsrv_query($conn, $sqlStatus, $paramsStatus);
 }
 

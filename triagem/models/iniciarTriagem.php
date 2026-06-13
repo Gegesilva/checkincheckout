@@ -70,11 +70,13 @@ if ($os != '' && $codTecnico != '') {
 
     $sqlUpdate = "
         UPDATE TB02115
-        SET TB02115_STATUS = ?
+        SET TB02115_STATUS = ?,
+            TB02115_DTALT = GETDATE(),
+            TB02115_OPALT = ?
         WHERE TB02115_CODIGO = ?
     ";
 
-    $paramsUpdate = array($EM_TRIAGEM, $os);
+    $paramsUpdate = array($EM_TRIAGEM, $User, $os);
     sqlsrv_query($conn, $sqlUpdate, $paramsUpdate);
 }
 
