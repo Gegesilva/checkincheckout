@@ -134,6 +134,10 @@ body {
     background: #ffd9d9;
 }
 
+.triagem-table tr.linha-prioridade td {
+    background: #fff1bf;
+}
+
 .os-link {
     border: 0;
     background: transparent;
@@ -145,6 +149,12 @@ body {
 
 .os-link:hover {
     color: #dc3545;
+}
+
+.os-bloqueada {
+    color: #7b8790;
+    font-weight: 800;
+    cursor: not-allowed;
 }
 
 .empty-state {

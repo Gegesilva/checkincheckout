@@ -7,7 +7,7 @@ $usuarioBanco = 'sa';
 $SenhaBanco = '13012020';
 
 
-/* status de transferencia */
+/* status de transferencia triagem */
 
 $PENDENTES = '00';
 $EM_TRIAGEM = '01';

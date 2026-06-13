@@ -32,21 +32,30 @@ function renderizarTabelaTriagem($rows, $tipo)
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($rows as $row) {
+                <?php foreach ($rows as $indice => $row) {
                     $local = isset($row['local']) ? trim($row['local']) : '';
                     $classeLocal = strtoupper($local) == 'TRI' ? '' : ' linha-alerta';
+                    $prioritaria = osPrioritaria($row);
+                    $podeIniciar = $tipo != 'pendente' || $indice == 0 || $prioritaria;
+                    $classePrioridade = $prioritaria ? ' linha-prioridade' : '';
                     $dataPedido = isset($row['datapedido']) ? formatarDataTriagem($row['datapedido']) : '';
                     $medidores = isset($row['medidores']) ? $row['medidores'] : array();
                     $medidorPb = isset($medidores['TB02054_MEDIDORPB']) ? $medidores['TB02054_MEDIDORPB'] : '';
                     $medidorColor = isset($medidores['TB02054_MEDIDORCOLOR']) ? $medidores['TB02054_MEDIDORCOLOR'] : '';
                     $medidorTotal = isset($medidores['TB02054_MEDIDORTOTAL']) ? $medidores['TB02054_MEDIDORTOTAL'] : '';
                 ?>
-                    <tr class="<?php echo $classeLocal; ?>">
+                    <tr class="<?php echo $classeLocal . $classePrioridade; ?>">
                         <td>
                             <?php if ($tipo == 'pendente') { ?>
-                                <button type="button" class="os-link" onclick="abrirModalTecnico('<?php echo j($row['os']); ?>', '<?php echo j($row['serie']); ?>')">
-                                    <?php echo h($row['os']); ?>
-                                </button>
+                                <?php if ($podeIniciar) { ?>
+                                    <button type="button" class="os-link" onclick="abrirModalTecnico('<?php echo j($row['os']); ?>', '<?php echo j($row['serie']); ?>')">
+                                        <?php echo h($row['os']); ?>
+                                    </button>
+                                <?php } else { ?>
+                                    <span class="os-bloqueada" title="Apenas a primeira OS da fila pode ser iniciada.">
+                                        <?php echo h($row['os']); ?>
+                                    </span>
+                                <?php } ?>
                             <?php } else { ?>
                                 <button type="button" class="os-link" onclick="abrirModalMedidores('<?php echo j($row['os']); ?>', '<?php echo j($row['serie']); ?>', '<?php echo j($medidorPb); ?>', '<?php echo j($medidorColor); ?>', '<?php echo j($medidorTotal); ?>')">
                                     <?php echo h($row['os']); ?>

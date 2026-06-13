@@ -12,6 +12,36 @@ $serie = isset($_POST['serie']) ? $_POST['serie'] : '';
 $codTecnico = isset($_POST['cod_tecnico']) ? $_POST['cod_tecnico'] : '';
 
 if ($os != '' && $codTecnico != '') {
+    $sqlProxima = "
+        SELECT TOP 1 os
+        FROM OS_CHEKINCHECKOUT
+        WHERE codstatus = ?
+        ORDER BY datapedido ASC, os ASC
+    ";
+    $stmtProxima = sqlsrv_query($conn, $sqlProxima, array($PENDENTES));
+    $proximaOs = '';
+
+    if ($stmtProxima && $rowProxima = sqlsrv_fetch_array($stmtProxima, SQLSRV_FETCH_ASSOC)) {
+        $proximaOs = $rowProxima['os'];
+    }
+
+    $sqlPrioridade = "
+        SELECT prioridade
+        FROM OS_CHEKINCHECKOUT
+        WHERE os = ?
+    ";
+    $stmtPrioridade = sqlsrv_query($conn, $sqlPrioridade, array($os));
+    $prioridade = '';
+
+    if ($stmtPrioridade && $rowPrioridade = sqlsrv_fetch_array($stmtPrioridade, SQLSRV_FETCH_ASSOC)) {
+        $prioridade = isset($rowPrioridade['prioridade']) ? trim($rowPrioridade['prioridade']) : '';
+    }
+
+    if ($prioridade == '' && $proximaOs != '' && $os != $proximaOs) {
+        echo "<script>location.href='../views/index.php'</script>";
+        exit;
+    }
+
     $sqlInsert = "
         INSERT INTO [dbo].[TB02130]
            ([TB02130_CODIGO]

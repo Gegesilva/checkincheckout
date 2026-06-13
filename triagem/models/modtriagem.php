@@ -6,7 +6,7 @@ function buscarOsTriagem($conn, $status)
         SELECT *
         FROM OS_CHEKINCHECKOUT
         WHERE codstatus = ?
-        ORDER BY datapedido ASC
+        ORDER BY datapedido ASC, os ASC
     ";
 
     $params = array($status);
@@ -60,6 +60,13 @@ function formatarDataTriagem($data)
     }
 
     return $data;
+}
+
+function osPrioritaria($row)
+{
+    if (isset($row['prioridade']) && trim($row['prioridade']) != '') {
+        return true;
+    }
 }
 
 function h($valor)
