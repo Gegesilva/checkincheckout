@@ -6,7 +6,7 @@ $status = isset($_POST['status']) ? $_POST['status'] : 0;
 
 $sql = "
     SELECT *
-    FROM VW02349
+    FROM OS_CHEKINCHECKOUT
     WHERE codstatus = ?
 ";
 
@@ -68,13 +68,37 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             <!-- Cabeçalho -->
             <div class="row fw-bold border-bottom pb-2 mb-2 cabecalho-lista">
 
-                <div class="col-md-1 coluna-ordenacao" data-coluna="0">OS <i class="bi bi-arrow-down-up"></i></div>
-                <div class="col-md-1 coluna-ordenacao" data-coluna="1">Data <i class="bi bi-arrow-down-up"></i></div>
-                <div class="col-md-3 coluna-ordenacao" data-coluna="2">Cliente <i class="bi bi-arrow-down-up"></i></div>
-                <div class="col-md-2 coluna-ordenacao" data-coluna="3">Cidade <i class="bi bi-arrow-down-up"></i></div>
-                <div class="col-md-1 coluna-ordenacao" data-coluna="4">Tipo <i class="bi bi-arrow-down-up"></i></div>
-                <div class="col-md-2 coluna-ordenacao" data-coluna="5">Técnico <i class="bi bi-arrow-down-up"></i></div>
-                <div class="col-md-1 coluna-ordenacao" data-coluna="6">Equip. <i class="bi bi-arrow-down-up"></i></div>
+                <div class="col-md-1 coluna-ordenacao" data-coluna="0">
+                    OS <i class="bi bi-arrow-down-up"></i>
+                </div>
+
+                <div class="col-md-2 coluna-ordenacao" data-coluna="1">
+                    Container <i class="bi bi-arrow-down-up"></i>
+                </div>
+
+                <div class="col-md-2 coluna-ordenacao" data-coluna="2">
+                    Modelo <i class="bi bi-arrow-down-up"></i>
+                </div>
+
+                <div class="col-md-1 coluna-ordenacao" data-coluna="3">
+                    Serial <i class="bi bi-arrow-down-up"></i>
+                </div>
+
+                <div class="col-md-1 coluna-ordenacao" data-coluna="4">
+                    Local <i class="bi bi-arrow-down-up"></i>
+                </div>
+
+                <div class="col-md-1 coluna-ordenacao" data-coluna="5">
+                    Vendido <i class="bi bi-arrow-down-up"></i>
+                </div>
+
+                <div class="col-md-1 coluna-ordenacao" data-coluna="6">
+                    Data Pedido <i class="bi bi-arrow-down-up"></i>
+                </div>
+
+                <div class="col-md-2 coluna-ordenacao" data-coluna="7">
+                    Grupo Econômico <i class="bi bi-arrow-down-up"></i>
+                </div>
 
             </div>
             <div id="lista-os">
@@ -86,6 +110,25 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                             <?php echo $row['os']; ?>
                         </div>
 
+                        <div class="col-md-2">
+                            <?php echo $row['container']; ?>
+                        </div>
+
+                        <div class="col-md-2">
+                            <?php echo $row['modelo']; ?>
+                        </div>
+
+                        <div class="col-md-1">
+                            <?php echo $row['serie']; ?>
+                        </div>
+
+                        <div class="col-md-1">
+                            <?php echo $row['local']; ?>
+                        </div>
+
+                        <div class="col-md-1">
+                            <?php echo $row['vendido']; ?>
+                        </div>
                         <div class="col-md-1">
                             <?php
                             if (!empty($row['data'])) {
@@ -93,25 +136,8 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                             }
                             ?>
                         </div>
-
-                        <div class="col-md-3">
-                            <?php echo $row['cliente']; ?>
-                        </div>
-
                         <div class="col-md-2">
-                            <?php echo $row['cidade']; ?>
-                        </div>
-
-                        <div class="col-md-1">
-                            <?php echo $row['tipo']; ?>
-                        </div>
-
-                        <div class="col-md-2">
-                            <?php echo $row['tecnico']; ?>
-                        </div>
-
-                        <div class="col-md-1">
-                            <?php echo $row['equipamento']; ?>
+                            <?php echo $row['grupoeco']; ?>
                         </div>
 
                     </div>
