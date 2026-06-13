@@ -21,7 +21,7 @@ session_destroy();
     <main class="login-page">
         <section class="login-card">
             <div class="logo-area">
-                <span class="logo-placeholder">Logo</span>
+                <img src="../img/logo.jpg" alt="TINSEI">
             </div>
 
             <div class="login-header">

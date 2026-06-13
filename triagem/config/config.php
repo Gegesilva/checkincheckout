@@ -9,6 +9,9 @@ $SenhaBanco = '13012020';
 
 /* status */
 
+$PENDENTES = '00';
+$EM_TRIAGEM = '01';
+
 
 $STATUS_TRIAGEM = '00';
 

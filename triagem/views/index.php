@@ -6,8 +6,8 @@ include_once '../models/modtriagem.php';
 
 testLogin($conn);
 
-$osPendentes = buscarOsTriagem($conn, '00');
-$osEmTriagem = buscarOsTriagem($conn, '01');
+$osPendentes = buscarOsTriagem($conn, $PENDENTES);
+$osEmTriagem = buscarOsTriagem($conn, $EM_TRIAGEM);
 
 function renderizarTabelaTriagem($rows, $tipo)
 {
@@ -20,14 +20,14 @@ function renderizarTabelaTriagem($rows, $tipo)
         <table class="triagem-table">
             <thead>
                 <tr>
-                    <th>OS</th>
-                    <th>Container</th>
-                    <th>Modelo</th>
-                    <th>Serial</th>
-                    <th>Local</th>
-                    <th>Vendido (S/N)</th>
-                    <th>Data Pedido</th>
-                    <th>Grupo Economico</th>
+                    <th class="coluna-ordenacao" data-coluna="0">OS</th>
+                    <th class="coluna-ordenacao" data-coluna="1">Container</th>
+                    <th class="coluna-ordenacao" data-coluna="2">Modelo</th>
+                    <th class="coluna-ordenacao" data-coluna="3">Serial</th>
+                    <th class="coluna-ordenacao" data-coluna="4">Local</th>
+                    <th class="coluna-ordenacao" data-coluna="5">Vendido (S/N)</th>
+                    <th class="coluna-ordenacao" data-coluna="6">Data Pedido</th>
+                    <th class="coluna-ordenacao" data-coluna="7">Grupo Economico</th>
                 </tr>
             </thead>
             <tbody>
@@ -113,7 +113,7 @@ function renderizarTabelaTriagem($rows, $tipo)
 
         <footer class="page-footer">
             <span>Atualizado: <?php echo date('d/m/y H:i'); ?></span>
-            <img src="../../../Saldos/Beneficios/public/img/logo.jpg" alt="TINSEI">
+            <img src="../img/logo.jpg" alt="TINSEI">
         </footer>
     </div>
 

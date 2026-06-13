@@ -7,7 +7,7 @@ body {
 }
 
 .page-shell {
-    width: min(1360px, calc(100% - 48px));
+    width: calc(100% - 16px);
     margin: 0 auto;
     padding: 28px 0;
 }
@@ -92,7 +92,8 @@ body {
 }
 
 .table-wrap {
-    overflow-x: auto;
+    max-height: 520px;
+    overflow: auto;
 }
 
 .triagem-table {
@@ -102,12 +103,24 @@ body {
 }
 
 .triagem-table th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
     padding: 13px 14px;
     background: #0d2f4f;
     color: #ffffff;
     font-weight: 800;
     text-align: left;
     white-space: nowrap;
+}
+
+.triagem-table th.coluna-ordenacao {
+    cursor: pointer;
+    user-select: none;
+}
+
+.triagem-table th.coluna-ordenacao:hover {
+    background: #123c63;
 }
 
 .triagem-table td {

@@ -40,3 +40,69 @@ document.addEventListener('keydown', function (event) {
         fecharModal('modalMedidores');
     }
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    var cabecalhos = document.querySelectorAll('.coluna-ordenacao');
+
+    for (var i = 0; i < cabecalhos.length; i++) {
+        cabecalhos[i].addEventListener('click', function () {
+            ordenarTabela(this);
+        });
+    }
+});
+
+function ordenarTabela(cabecalho) {
+    var coluna = parseInt(cabecalho.getAttribute('data-coluna'), 10);
+    var tabela = cabecalho;
+
+    while (tabela && tabela.tagName != 'TABLE') {
+        tabela = tabela.parentNode;
+    }
+
+    if (!tabela) {
+        return;
+    }
+
+    var tbody = tabela.getElementsByTagName('tbody')[0];
+    var linhas = Array.prototype.slice.call(tbody.getElementsByTagName('tr'));
+    var direcaoAtual = cabecalho.getAttribute('data-direcao') || 'desc';
+    var novaDirecao = direcaoAtual == 'desc' ? 'asc' : 'desc';
+
+    cabecalho.setAttribute('data-direcao', novaDirecao);
+
+    linhas.sort(function (a, b) {
+        var valorA = pegarTextoCelula(a, coluna);
+        var valorB = pegarTextoCelula(b, coluna);
+        var numeroA = parseFloat(valorA.replace(',', '.'));
+        var numeroB = parseFloat(valorB.replace(',', '.'));
+
+        if (!isNaN(numeroA) && !isNaN(numeroB)) {
+            return novaDirecao == 'desc' ? numeroB - numeroA : numeroA - numeroB;
+        }
+
+        valorA = valorA.toUpperCase();
+        valorB = valorB.toUpperCase();
+
+        if (valorA < valorB) {
+            return novaDirecao == 'desc' ? 1 : -1;
+        }
+
+        if (valorA > valorB) {
+            return novaDirecao == 'desc' ? -1 : 1;
+        }
+
+        return 0;
+    });
+
+    for (var i = 0; i < linhas.length; i++) {
+        tbody.appendChild(linhas[i]);
+    }
+}
+
+function pegarTextoCelula(linha, coluna) {
+    if (!linha.children[coluna]) {
+        return '';
+    }
+
+    return linha.children[coluna].innerText.replace(/^\s+|\s+$/g, '');
+}
